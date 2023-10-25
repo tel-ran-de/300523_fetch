@@ -1,0 +1,10 @@
+.product-card img {
+  width: 265px;
+  height: 265px;
+}
+
+.product-card h2 {
+  color: #000;
+  font-size: 18px;
+  font-weight: 500;
+}

@@ -1,7 +1,8 @@
 const root = document.querySelector('#root')
 
+// параметры и аргументы функции
 const showEachProduct = (arrayOfProducts) => {
-  arrayOfProducts.forEach((product) => {
+  arrayOfProducts.forEach((product, index) => {
     const productCard = document.createElement('div')
     const title = document.createElement('h2')
     title.innerText = product.title
@@ -9,21 +10,23 @@ const showEachProduct = (arrayOfProducts) => {
     description.innerText = product.description
 
     const image = document.createElement('img')
-    image.src = product.images[0] // url картинки добавляем в src
+    image.src = `./images/categories/${1}.png` // url картинки добавляем в src
     productCard.append(title, description, image)
     productCard.classList.add('.product-card')
     root.append(productCard)
   })
 }
 
-const fetchProducts = (callback) => {
-  fetch('https://dummyjson.com/products')
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data)
-      const arrayOfProducts = data.products
-      callback(arrayOfProducts)
-    })
+// ASYNC/AWAIT = THEN().THEN() - принцип работы
+const fetchProducts = async (callback) => {
+  const response = await fetch('https://dummyjson.com/products') // отправили запрос возвр промис
+  const data = await response.json() // JSON --> js тип данных
+  callback(data.products)
 }
 
 fetchProducts((arrayOfProducts) => showEachProduct(arrayOfProducts))
+
+// пост но мы не знаем юзера
+// мы узнали id юзера
+//{ userId: 1, id: 1}
+//  получить ВСЕ ПОСТЫ ЮЗЕРА по его id

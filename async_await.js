@@ -1,3 +1,5 @@
+import { addNewPost } from './requests.js'
+
 const root = document.querySelector('#root')
 const form = document.querySelector('form')
 const titleValue = document.querySelector('#title')
@@ -13,18 +15,6 @@ const showProduct = (product) => {
   root.append(productCard)
 }
 
-const addNewPost = async (product) => {
-  const response = await fetch('https://dummyjson.com/products/add', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify(product),
-  })
-  const data = await response.json()
-  showProduct(data)
-}
-
 form.addEventListener('submit', (event) => {
   event.preventDefault()
 
@@ -32,7 +22,7 @@ form.addEventListener('submit', (event) => {
     title: titleValue.value,
     description: descriptionValue.value,
   }
-  addNewPost(newProduct)
+  addNewPost(newProduct, (product) => showProduct(product))
 
   titleValue.value = ''
   descriptionValue.value = ''
